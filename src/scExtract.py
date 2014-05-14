@@ -30,7 +30,7 @@ class ScExtract(object):
 
     def scan(self):
         page = self.getNbrPages()
-        list = {}
+        list = []
         previousLen = 0
 
         #each page
@@ -44,28 +44,23 @@ class ScExtract(object):
                 years = soup.findAll("span" , {"class" : "elco-date"})
                 directors = soup.findAll("a" , {"class" : "elco-baseline-a"})
 
-                #movie name
-                print (names[0].string)
-                #note
-                print (re.sub(r'\s+', '', notes[1].string))
-                #directors
-                print (directors[0].string)
-                             
-                #type name             
-                #extract from names the href work type
-                type = re.search(r"^(?:\\.|[^/\\])*/((?:\\.|[^/\\])*)/", names[0]['href']).group(1)
                 
-                #year
-                year = re.search(r"(?<=\().*?(?=\))", years[0].string).group(0)
-
-
                 noteindex = 1
 
-                for index in names:
-                    if type == "films":
-                        workClass.Movie(names[index].string, directors[index])
-
+                for index in range(len(names)):
+                    note = re.sub(r'\s+', '', notes[noteindex].string)
+                    name = names[index].string
+                    year = re.search(r"(?<=\().*?(?=\))", years[index].string).group(0)
+                    type = re.search(r"^(?:\\.|[^/\\])*/((?:\\.|[^/\\])*)/", names[0]['href']).group(1)    
+                    if type == "film" or type == "serie":
+                        director = ""
+                        for dir in directors[index]:
+                            director += dir.string + ','
+                        list.append(workClass.Movie(name, director, year, note))
+                    noteindex+=2
                         
-                        list.append(workClass.Movie())
+                        
+                for t in list:
+                    print (t.GetList() + '/n')
 
 

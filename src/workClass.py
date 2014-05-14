@@ -12,7 +12,7 @@ class Movie(object):
             self.year  = year
             self.note = note
 	def GetList(self):
-            return [self.title,self.director, self.year, self.note]
+            return self.title + self.director + self.year + self.note
 
 class Series(object):
 	def __init__(self, title, director, year, note):
@@ -21,7 +21,7 @@ class Series(object):
             self.year  = year
             self.note = note
 	def GetList(self):
-            return [self.title,self.director, self.year, self.note]	
+            return self.title + self.director + self.year + self.note	
 		
 class Music(object):
 	def __init__(self, title, artist, album, year, note):
