@@ -11,10 +11,12 @@ class CsvCreator(object):
     
     def __init__(self, list):
         self.list = list
-        with open('sc.csv', 'w') as csvfile:
-            spamwriter = csv.writer(csvfile, delimiter=';' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        with open('sc.csv', 'w', newline='') as csvfile:
+            spamwriter = csv.writer(csvfile, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             for value in list:
                 array = value.GetList()
-                spamwriter.writerow([array[0], array[1], array[2], array[3], array[4]])
-
+                try:
+                    spamwriter.writerow([array[0], array[1], array[2], array[3], array[4]])
+                except Exception:
+                    print ("Encoding error")
 

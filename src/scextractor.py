@@ -23,9 +23,4 @@ class Type(Enum):
 if __name__ == "__main__":
     sc = scExtract.ScExtract("rtpmomo")
     list = sc.scan()
-    
     print (csvCreator.CsvCreator(list))
-    
-    
-    
-    

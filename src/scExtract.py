@@ -7,6 +7,7 @@ __date__ ="$14 mai 2014 23:04:51$"
 
 import urllib.request
 import re
+import time
 import workClass
 from bs4 import BeautifulSoup
 
@@ -32,8 +33,13 @@ class ScExtract(object):
         list = []
         
         #each page
-        #for page in range(1, int(page)+2):
-        for page in range(1, 5):
+
+        lastlenght = 0
+        #for page in range(1, 2):
+        for page in range(1, int(page)+2):
+                time.sleep(1)
+                print(len(list)-lastlenght)
+                lastlenght=(len(list))
                 #Extract all page               
                 soup = self.getSoup(self.accountName, page)
            
@@ -58,11 +64,14 @@ class ScExtract(object):
                     if years:
                         year = re.search(r"(?<=\().*?(?=\))", years[0].string).group(0)   
                     else:
-                        year = "none"
+                        year = ""
 
                     director = ""   
-                    for dir in directors:
-                        director += dir.string
+                    for dir in range (len(directors)):
+                        if dir < len(directors)-1:
+                            director += directors[dir].string + ', ' 
+                        else: 
+                            director += directors[dir].string
                     
                     if type == "film":
                         list.append(workClass.Work(type, name, director, year, note))
@@ -71,7 +80,7 @@ class ScExtract(object):
                     elif type =="morceau" or type == "album":
                         list.append(workClass.Work(type, name, director, year, note))
                     else:
-                        list.append(workClass.Work(type, name, year, note))
+                        list.append(workClass.Work("", name, director, year, note))
                         
         return list                        
 
