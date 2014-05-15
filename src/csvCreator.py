@@ -18,5 +18,7 @@ class CsvCreator(object):
                 try:
                     spamwriter.writerow([array[0], array[1], array[2], array[3], array[4]])
                 except Exception:
+                    spamwriter.writerow([array[5]])
+                    print(type,"","",array[3],array[4],array[5])
                     print ("Encoding error")
 

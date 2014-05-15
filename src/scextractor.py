@@ -21,6 +21,6 @@ class Type(Enum):
 
 
 if __name__ == "__main__":
-    sc = scExtract.ScExtract("rtpmomo")
+    sc = scExtract.ScExtract("Neo-XP")
     list = sc.scan()
     print (csvCreator.CsvCreator(list))

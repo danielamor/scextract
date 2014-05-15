@@ -28,7 +28,5 @@ obj/
 _ReSharper*/
 [Tt]est[Rr]esult*
 nbproject/private/private.xml
-src/sc.csv
-src/scBackup.csv
-src/sc.csv
-src/scBackup.csv
+*csv
+*.pyc

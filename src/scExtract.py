@@ -73,7 +73,7 @@ class ScExtract(object):
                         else: 
                             director += directors[dir].string
                     
-                    list.append(workClass.Work(type, name, director, year, note))
+                    list.append(workClass.Work(type, name, director, year, note, names[0]['href']))
 
         print(len(list))                
         return list                        
