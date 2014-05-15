@@ -11,17 +11,19 @@ class Movie(object):
             self.director = director
             self.year  = year
             self.note = note
+            self.type = "movie"
 	def GetList(self):
-            return self.title + self.director + self.year + self.note
+            return '%s %s %s %s %s' % (self.type, self.title, self.director, self.year, self.note)
 
-class Series(object):
+class Serie(object):
 	def __init__(self, title, director, year, note):
             self.title  = title
             self.director = director
             self.year  = year
             self.note = note
+            self.type = "serie"
 	def GetList(self):
-            return self.title + self.director + self.year + self.note	
+             return '%s %s %s %s %s' % (self.type, self.title, self.director, self.year, self.note)
 		
 class Music(object):
 	def __init__(self, title, artist, album, year, note):
@@ -30,6 +32,7 @@ class Music(object):
             self.album = album
             self.year  = year
             self.note = note
+            self.type = "music"
 	def GetList(self):
             return [self.title, self.artist, self.album, self.year, self.note]	
 		
@@ -40,5 +43,6 @@ class Book(object):
             self.editor = editor
             self.note = note
             self.year = year
+            self.type = "book"
 	def GetList(self):
             return [self.title, self.writer, self.editor, self.year, self.note]	

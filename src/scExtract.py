@@ -35,32 +35,49 @@ class ScExtract(object):
 
         #each page
         #for page in range(1, int(page)+2):
-        for page in range(1, 2):
+        for page in range(1, 10):
                 #extract each Type               
                 soup = self.getSoup(self.accountName, page)
-                #extract movies and notes class
-                names = soup.findAll(attrs= {"class" : "elco-anchor" })
-                notes = soup.findAll("span", {"class" : "elrua-useraction-inner only-child" })
-                years = soup.findAll("span" , {"class" : "elco-date"})
-                directors = soup.findAll("a" , {"class" : "elco-baseline-a"})
-
-                
+           
+                #Get parent of the items
+                parents = soup.findAll(attrs= {"class" : "elco-collection-item" })              
                 noteindex = 1
 
-                for index in range(len(names)):
-                    note = re.sub(r'\s+', '', notes[noteindex].string)
-                    name = names[index].string
-                    year = re.search(r"(?<=\().*?(?=\))", years[index].string).group(0)
-                    type = re.search(r"^(?:\\.|[^/\\])*/((?:\\.|[^/\\])*)/", names[0]['href']).group(1)    
-                    if type == "film" or type == "serie":
+                for index in range(len(parents)):                 
+                    #Extract data from ONLY the parent
+                    names = parents[index].findAll(attrs= {"class" : "elco-anchor" })
+                    notes = parents[index].findAll("span", {"class" : "elrua-useraction-inner only-child" })
+                    years = parents[index].findAll("span" , {"class" : "elco-date"})
+                    directors = parents[index].findAll("a" , {"class" : "elco-baseline-a"})
+                          
+                 
+                    #Extract value
+                    name = names[0].string
+                    note = re.sub(r'\s+', '', notes[1].string)
+                    if years:
+                        year = re.search(r"(?<=\().*?(?=\))", years[0].string).group(0)   
+                    else:
+                        year = "none"
+                    type = re.search(r"^(?:\\.|[^/\\])*/((?:\\.|[^/\\])*)/", names[0]['href']).group(1)   
+                                      
+                    if type == "film":
                         director = ""
-                        for dir in directors[index]:
+                        for dir in directors:
                             director += dir.string + ','
                         list.append(workClass.Movie(name, director, year, note))
                     noteindex+=2
-                        
+                    if type == "serie":
+                        if len(directors) > 1:
+                            for dir in directors:
+                                director += dir.string + ','
+                        else:
+                            director += dir.string
+                        list.append(workClass.Serie(name, director, year, note))
+                    #if type =="music":
+                    #    list.append(workClass.Serie(name, "", year, note))
+                                     
                         
                 for t in list:
-                    print (t.GetList() + '/n')
+                    print (t.GetList())
 
 
