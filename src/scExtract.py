@@ -73,15 +73,9 @@ class ScExtract(object):
                         else: 
                             director += directors[dir].string
                     
-                    if type == "film":
-                        list.append(workClass.Work(type, name, director, year, note))
-                    elif type == "serie":
-                           list.append(workClass.Work(type, name, director, year, note))
-                    elif type =="morceau" or type == "album":
-                        list.append(workClass.Work(type, name, director, year, note))
-                    else:
-                        list.append(workClass.Work("", name, director, year, note))
-                        
+                    list.append(workClass.Work(type, name, director, year, note))
+
+        print(len(list))                
         return list                        
 
 
