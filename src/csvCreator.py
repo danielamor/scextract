@@ -14,11 +14,12 @@ class CsvCreator(object):
         with open('sc.csv', 'w', newline='') as csvfile:
             spamwriter = csv.writer(csvfile, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             for value in list:
-                array = value.GetList()
+                array = value.GetList()     
                 try:
                     spamwriter.writerow([array[0], array[1], array[2], array[3], array[4]])
-                except Exception:
+                except csv.Error as e:                                
+                    print ('line %d: %s' % (spamwriter.line_num, e))
                     spamwriter.writerow([array[5]])
-                    print(type,"","",array[3],array[4],array[5])
-                    print ("Encoding error")
+ 
 
+                    
