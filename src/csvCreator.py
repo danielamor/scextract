@@ -17,8 +17,8 @@ class CsvCreator(object):
                 array = value.GetList()     
                 try:
                     spamwriter.writerow([array[0], array[1], array[2], array[3], array[4]])
-                except csv.Error as e:                                
-                    print ('line %d: %s' % (spamwriter.line_num, e))
+                except UnicodeError as e:                                
+                    print (e)
                     spamwriter.writerow([array[5]])
  
 

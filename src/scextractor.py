@@ -2,11 +2,7 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 import scExtract
-import workClass
 import csvCreator
-
-from enum import Enum
-
 
 __author__="Daniel"
 __date__ ="$14 mai 2014 23:01:54$"

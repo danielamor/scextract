@@ -23,7 +23,7 @@ class ScExtract(object):
         except urllib.error.URLError as e:
             print('Url error: %s | %s' %(url, e))
         except urllib.error.HTTPError as e:
-            print('Http error: %s | %s' %(url, e))                
+            print('Http error: %s | %s' %(url, e))        
 
     def getNbrPages(self):
         try:
@@ -86,6 +86,11 @@ class ScExtract(object):
                         year = re.search(r"(?<=\().*?(?=\))", years[0].string).group(0) 
                     except BaseException:
                         year = ""
+                        
+                    try:
+                        href = names[0]['href']
+                    except BaseException:
+                        href = ""
 
                     director = ""   
                     for dir in range (len(directors)):
@@ -94,7 +99,7 @@ class ScExtract(object):
                         else: 
                             director += directors[dir].string
                     
-                    list.append(workClass.Work(type, name, director, year, note, names[0]['href']))
+                    list.append(workClass.Work(type, name, director, year, note, href))
                     print('Page %s done' % page)
         print(len(list))                
         return list                        
