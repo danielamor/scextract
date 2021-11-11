@@ -9,12 +9,17 @@ import csv
 class CsvCreator(object):
     """save all data to csv"""
     
-    def __init__(self, array):
-        self.array = array
-        with open('sc.csv', 'wb') as csvfile:
-            spamwriter = csv.writer(csvfile, delimiter=';' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            for key, value in array.items():
-                spamwriter.writerow([unidecode(key), value])
-        return super(csvCreator, self).__init__(*args, **kwargs)
+    def __init__(self, list):
+        self.list = list
+        with open('sc.csv', 'w', newline='') as csvfile:
+            spamwriter = csv.writer(csvfile, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            for value in list:
+                array = value.GetList()     
+                try:
+                    spamwriter.writerow([array[0], array[1], array[2], array[3], array[4]])
+                except UnicodeError as e:                                
+                    print (e)
+                    spamwriter.writerow([array[5]])
+ 
 
-
+                    
